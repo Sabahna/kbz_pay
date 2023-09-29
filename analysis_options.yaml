@@ -1,4 +1,211 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude: [ build/**, lib/**.freezed.dart, lib/**.g.dart ]
+  errors:
+    #   Error Rules
+    always_use_package_imports: error
+    avoid_dynamic_calls: error
+    avoid_empty_else: error
+    avoid_print: error
+    avoid_slow_async_io: error
+    avoid_type_to_string: error
+    avoid_types_as_parameter_names: error
+    avoid_function_literals_in_foreach_calls: error
+    cancel_subscriptions: error
+    collection_methods_unrelated_type: error
+    comment_references: error
+    control_flow_in_finally: error
+    discarded_futures: error
+    empty_statements: error
+    no_duplicate_case_values: error
+    prefer_void_to_null: error
+    unnecessary_statements: error
+    valid_regexps: error
+
+    #   Styled Rules
+    always_declare_return_types: error
+    always_put_control_body_on_new_line: error
+    always_put_required_named_parameters_first: error
+    #    - always_specify_types
+    annotate_overrides: error
+    avoid_bool_literals_in_conditional_expressions: error
+    # avoid_catches_without_on_clauses: error
+    avoid_catching_errors: error
+    avoid_classes_with_only_static_members: error
+    avoid_final_parameters: error
+    avoid_init_to_null: error
+    avoid_multiple_declarations_per_line: error
+    avoid_positional_boolean_parameters: error
+    avoid_redundant_argument_values: error
+    avoid_renaming_method_parameters: error
+    avoid_return_types_on_setters: error
+    avoid_returning_null_for_void: error
+    avoid_setters_without_getters: error
+    avoid_single_cascade_in_expression_statements: error
+    avoid_types_on_closure_parameters: error
+    avoid_unnecessary_containers: error
+    avoid_unused_constructor_parameters: error
+    avoid_void_async: error
+    await_only_futures: error
+    camel_case_extensions: error
+    camel_case_types: error
+    cascade_invocations: error
+    cast_nullable_to_non_nullable: error
+    constant_identifier_names: error
+    curly_braces_in_flow_control_structures: error
+    directives_ordering: error
+    empty_constructor_bodies: error
+    eol_at_end_of_file: error
+    exhaustive_cases: error
+    file_names: error
+    flutter_style_todos: error
+    no_leading_underscores_for_library_prefixes: error
+    no_leading_underscores_for_local_identifiers: error
+    null_closures: error
+    prefer_collection_literals: error
+    prefer_conditional_assignment: error
+    prefer_contains: error
+    prefer_double_quotes: error
+    prefer_final_fields: error
+    prefer_final_in_for_each: error
+    prefer_final_locals: error
+    prefer_function_declarations_over_variables: error
+    prefer_if_null_operators: error
+    prefer_initializing_formals: error
+    prefer_inlined_adds: error
+    prefer_is_empty: error
+    prefer_is_not_empty: error
+    provide_deprecation_message: error
+    recursive_getters: error
+    require_trailing_commas: error
+    sort_child_properties_last: error
+    sort_constructors_first: error
+    sort_unnamed_constructors_first: error
+    unawaited_futures: error
+    unnecessary_late: error
+    unnecessary_null_aware_assignments: error
+    unnecessary_this: error
+    use_decorated_box: error
+    unnecessary_string_escapes: error
+    unnecessary_overrides: error
+    unnecessary_string_interpolations: error
+    unnecessary_to_list_in_spreads: error
+    use_colored_box: error
+    unreachable_from_main: error
+    use_enums: error
+    use_full_hex_values_for_flutter_colors: error
+    use_function_type_syntax_for_parameters: error
+    use_if_null_to_convert_nulls_to_bools: error
+    use_string_buffers: error
+    use_string_in_part_of_directives: error
+
+    #   pub rules
+    depend_on_referenced_packages: error
+    secure_pubspec_urls: error
+    sort_pub_dependencies: error
+
+linter:
+  rules:
+    #   Error Rules
+    - always_use_package_imports
+    - avoid_dynamic_calls
+    - avoid_empty_else
+    - avoid_print
+    - avoid_slow_async_io
+    - avoid_type_to_string
+    - avoid_types_as_parameter_names
+    - avoid_function_literals_in_foreach_calls
+    - cancel_subscriptions
+    - collection_methods_unrelated_type
+    - comment_references
+    - control_flow_in_finally
+    - discarded_futures
+    - empty_statements
+    - no_duplicate_case_values
+    - prefer_void_to_null
+    - unnecessary_statements
+    - valid_regexps
+
+    #   Styled Rules
+    - always_declare_return_types
+    - always_put_control_body_on_new_line
+    - always_put_required_named_parameters_first
+    #    - always_specify_types
+    - annotate_overrides
+    - avoid_bool_literals_in_conditional_expressions
+    # - avoid_catches_without_on_clauses
+    - avoid_catching_errors
+    - avoid_classes_with_only_static_members
+    - avoid_final_parameters
+    - avoid_init_to_null
+    - avoid_multiple_declarations_per_line
+    - avoid_positional_boolean_parameters
+    - avoid_redundant_argument_values
+    - avoid_renaming_method_parameters
+    - avoid_return_types_on_setters
+    - avoid_returning_null_for_void
+    - avoid_setters_without_getters
+    - avoid_single_cascade_in_expression_statements
+    - avoid_types_on_closure_parameters
+    - avoid_unnecessary_containers
+    - avoid_unused_constructor_parameters
+    - avoid_void_async
+    - await_only_futures
+    - camel_case_extensions
+    - camel_case_types
+    - cascade_invocations
+    - cast_nullable_to_non_nullable
+    - constant_identifier_names
+    - curly_braces_in_flow_control_structures
+    - directives_ordering
+    - empty_constructor_bodies
+    - eol_at_end_of_file
+    - exhaustive_cases
+    - file_names
+    - flutter_style_todos
+    - no_leading_underscores_for_library_prefixes
+    - no_leading_underscores_for_local_identifiers
+    - null_closures
+    - prefer_collection_literals
+    - prefer_conditional_assignment
+    - prefer_contains
+    - prefer_double_quotes
+    - prefer_final_fields
+    - prefer_final_in_for_each
+    - prefer_final_locals
+    - prefer_function_declarations_over_variables
+    - prefer_if_null_operators
+    - prefer_initializing_formals
+    - prefer_inlined_adds
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - provide_deprecation_message
+    - recursive_getters
+    - require_trailing_commas
+    - sort_child_properties_last
+    - sort_constructors_first
+    - sort_unnamed_constructors_first
+    - unawaited_futures
+    - unnecessary_late
+    - unnecessary_null_aware_assignments
+    - unnecessary_this
+    - use_decorated_box
+    - unnecessary_string_escapes
+    - unnecessary_overrides
+    - unnecessary_string_interpolations
+    - unnecessary_to_list_in_spreads
+    - use_colored_box
+    - unreachable_from_main
+    - use_enums
+    - use_full_hex_values_for_flutter_colors
+    - use_function_type_syntax_for_parameters
+    - use_if_null_to_convert_nulls_to_bools
+    - use_string_buffers
+    - use_string_in_part_of_directives
+
+    #   pub rules
+    - depend_on_referenced_packages
+    - secure_pubspec_urls
+    - sort_pub_dependencies
+

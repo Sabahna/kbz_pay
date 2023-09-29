@@ -1,6 +1,5 @@
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'flutter_kbz_pay_method_channel.dart';
+import "package:flutter_kbz_pay/src/flutter_kbz_pay_method_channel.dart";
+import "package:plugin_platform_interface/plugin_platform_interface.dart";
 
 abstract class FlutterKbzPayPlatform extends PlatformInterface {
   /// Constructs a FlutterKbzPayPlatform.
@@ -21,9 +20,5 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
   static set instance(FlutterKbzPayPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
-  }
-
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }
