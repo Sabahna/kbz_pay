@@ -18,6 +18,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 
@@ -29,7 +32,7 @@ android {
         namespace 'com.flutter.kbz.pay.flutter_kbz_pay'
     }
 
-    compileSdkVersion 33
+    compileSdkVersion 31
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,7 +49,9 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     dependencies {
@@ -59,10 +64,17 @@ android {
             useJUnitPlatform()
 
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
             }
         }
     }
+}
+
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation project(':kbz-pay-app')
+    implementation 'com.android.support:multidex:1.0.3'
 }

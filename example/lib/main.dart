@@ -30,7 +30,19 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
-    try {} on PlatformException {
+    try {
+      final pay = FlutterKbzPay();
+      platformVersion = await pay.startPayDemo(
+        merchCode: "200290",
+        appId: "kp7536cbbc95ce4fe8bcc2505a6ff15c",
+        signKey: "wowme@12345678",
+        orderId: "123456",
+        amount: 1000,
+        title: "Testing ",
+        notifyURL: "https://wowme.tech",
+        isProduction: true,
+      );
+    } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
 
@@ -39,7 +51,9 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {});
+    setState(() {
+      _platformVersion = platformVersion;
+    });
   }
 
   @override

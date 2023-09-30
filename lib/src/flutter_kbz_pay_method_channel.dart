@@ -7,4 +7,19 @@ class MethodChannelFlutterKbzPay extends FlutterKbzPayPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   final methodChannel = const MethodChannel("com.flutter.kbz.pay");
+
+  @override
+  Future<String> startPayDemo({
+    required String merchCode,
+    required String appId,
+    required String signKey,
+    required String orderId,
+    required double amount,
+    required String title,
+    required String notifyURL,
+    required bool isProduction,
+    String? urlScheme,
+  }) async {
+    return "hay";
+  }
 }

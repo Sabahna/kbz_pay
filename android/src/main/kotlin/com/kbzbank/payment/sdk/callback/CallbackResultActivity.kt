@@ -13,12 +13,12 @@ class CallbackResultActivity : Activity() {
         val result: Int = intent.getIntExtra(KBZPay.EXTRA_RESULT, 0)
         if (result == KBZPay.COMPLETED) {
             Log.d("KBZPay", "pay success!")
-            val orderId: String = intent.getStringExtra(KBZPay.EXTRA_ORDER_ID)
+            val orderId: String? = intent.getStringExtra(KBZPay.EXTRA_ORDER_ID)
 //            FlutterKpayKitPlugin.sendPayStatus(result, orderId)
         } else {
-            val failMsg: String = intent.getStringExtra(KBZPay.EXTRA_FAIL_MSG)
+            val failMsg: String? = intent.getStringExtra(KBZPay.EXTRA_FAIL_MSG)
             Log.d("KBZPay", "pay fail, fail reason = $failMsg")
-            val orderId: String = intent.getStringExtra(KBZPay.EXTRA_ORDER_ID)
+            val orderId: String? = intent.getStringExtra(KBZPay.EXTRA_ORDER_ID)
 //            FlutterKpayKitPlugin.sendPayStatus(result, orderId)
         }
         finish()

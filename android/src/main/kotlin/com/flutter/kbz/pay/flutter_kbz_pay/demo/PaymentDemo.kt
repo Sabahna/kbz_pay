@@ -3,7 +3,7 @@ package com.flutter.kbz.pay.flutter_kbz_pay.demo
 import android.app.Activity
 import android.util.Log
 import com.flutter.kbz.pay.flutter_kbz_pay.SHA
-//import com.kbzbank.payment.KBZPay
+import com.kbzbank.payment.KBZPay
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONException
 import org.json.JSONObject
@@ -67,7 +67,7 @@ object PaymentDemo {
     }
 
     private fun pay(activity: Activity) {
-//        KBZPay.startPay(activity, mOrderInfo, mSign, "SHA256");
+        KBZPay.startPay(activity, mOrderInfo, mSign, "SHA256");
     }
 
 }
