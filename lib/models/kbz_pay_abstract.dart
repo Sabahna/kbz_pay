@@ -1,4 +1,8 @@
 abstract class FlutterKbzPayAbstract {
+  /// ### For Testing
+  ///
+  Future<String> sayHello(String name);
+
   /// #### Recommend for demonstration
   /// This will pre-create the payment order and will request the authentication of the KBZ pay app
   Future<String> startPayDemo({
@@ -14,4 +18,8 @@ abstract class FlutterKbzPayAbstract {
     /// This url Scheme works only in iOS
     String? urlScheme,
   });
+
+  /// Test pay
+  ///
+  Future<void> startPayIos();
 }

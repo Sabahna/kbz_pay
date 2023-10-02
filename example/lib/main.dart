@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kbz_pay/flutter_kbz_pay.dart';
+import 'package:flutter_kbz_pay_example/payment.dart';
+import 'package:kbz_pay/kbz_pay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +20,16 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _flutterKbzPayPlugin = FlutterKbzPay();
 
+  /// text controller
+  ///
+  final sayHelloController = TextEditingController();
+  String sayHelloText = "";
+
+  final payment = Payment();
+
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -64,7 +71,38 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(sayHelloText),
+              // TextField(
+              //   controller: sayHelloController,
+              // ),
+              ElevatedButton(
+                  onPressed: () async {
+                    final temp = await _flutterKbzPayPlugin
+                        .sayHello(sayHelloController.text);
+                    setState(() {
+                      sayHelloText = temp;
+                    });
+                  },
+                  child: const Text("Say Hello")),
+              // Text('Running on: $_platformVersion\n'),
+
+              ElevatedButton(
+                onPressed: () async {
+                  payment.sendPreCreate();
+                },
+                child: Text("PreCreate"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  _flutterKbzPayPlugin.startPayIos();
+                },
+                child: Text("Pay with Ios"),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,4 @@
-import "package:flutter_kbz_pay/src/flutter_kbz_pay_method_channel.dart";
+import "package:kbz_pay/src/kbz_pay_method_channel.dart";
 import "package:plugin_platform_interface/plugin_platform_interface.dart";
 
 abstract class FlutterKbzPayPlatform extends PlatformInterface {
@@ -22,7 +22,11 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// #### Recommend for demonstration
+  /// ### For Testing
+  ///
+  Future<String> sayHello(String name);
+
+  /// ### Recommend for demonstration
   /// This will pre-create the payment order and will request the authentication of the KBZ pay app
   Future<String> startPayDemo({
     required String merchCode,
@@ -37,4 +41,8 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
     /// This url Scheme works only in iOS
     String? urlScheme,
   });
+
+  /// Test start Pay
+  ///
+  Future<void> startPayIos();
 }
