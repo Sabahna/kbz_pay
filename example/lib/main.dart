@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kbz_pay/flutter_kbz_pay.dart';
+import 'package:flutter_kbz_pay_example/payment.dart';
+import 'package:kbz_pay/kbz_pay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +20,16 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _flutterKbzPayPlugin = FlutterKbzPay();
 
+  /// text controller
+  ///
+  final sayHelloController = TextEditingController();
+  String sayHelloText = "";
+
+  final payment = Payment();
+
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,8 +38,17 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _flutterKbzPayPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      final pay = FlutterKbzPay();
+      platformVersion = await pay.startPayDemo(
+        merchCode: "200290",
+        appId: "kp7536cbbc95ce4fe8bcc2505a6ff15c",
+        signKey: "wowme@12345678",
+        orderId: "123456",
+        amount: 1000,
+        title: "Testing ",
+        notifyURL: "https://wowme.tech",
+        isProduction: true,
+      );
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +71,38 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(sayHelloText),
+              // TextField(
+              //   controller: sayHelloController,
+              // ),
+              ElevatedButton(
+                  onPressed: () async {
+                    final temp = await _flutterKbzPayPlugin
+                        .sayHello(sayHelloController.text);
+                    setState(() {
+                      sayHelloText = temp;
+                    });
+                  },
+                  child: const Text("Say Hello")),
+              // Text('Running on: $_platformVersion\n'),
+
+              ElevatedButton(
+                onPressed: () async {
+                  payment.sendPreCreate();
+                },
+                child: Text("PreCreate"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  _flutterKbzPayPlugin.startPayIos();
+                },
+                child: Text("Pay with Ios"),
+              ),
+            ],
+          ),
         ),
       ),
     );

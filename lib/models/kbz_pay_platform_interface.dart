@@ -1,6 +1,5 @@
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'flutter_kbz_pay_method_channel.dart';
+import "package:kbz_pay/src/kbz_pay_method_channel.dart";
+import "package:plugin_platform_interface/plugin_platform_interface.dart";
 
 abstract class FlutterKbzPayPlatform extends PlatformInterface {
   /// Constructs a FlutterKbzPayPlatform.
@@ -23,7 +22,27 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
+  /// ### For Testing
+  ///
+  Future<String> sayHello(String name);
+
+  /// ### Recommend for demonstration
+  /// This will pre-create the payment order and will request the authentication of the KBZ pay app
+  Future<String> startPayDemo({
+    required String merchCode,
+    required String appId,
+    required String signKey,
+    required String orderId,
+    required double amount,
+    required String title,
+    required String notifyURL,
+    required bool isProduction,
+
+    /// This url Scheme works only in iOS
+    String? urlScheme,
+  });
+
+  /// Test start Pay
+  ///
+  Future<void> startPayIos();
 }

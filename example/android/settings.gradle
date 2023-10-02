@@ -15,6 +15,6 @@ pluginManagement {
     }
 }
 
-include ":app"
+include ":app", ":kbz-pay-app"
 
 apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
