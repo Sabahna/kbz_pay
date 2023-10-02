@@ -35,12 +35,16 @@ link fails, please contact the bank at this time or get the SDK(v1.1.0) in the p
                └── build.gradle
    </pre>
 
+   **In `kbzsdk_x.x.x.aar`, x.x.x means the SDK version.**
+
 3. Content of the `android/kbz-pay-app/build.gradle` file:
    ```gradle
    configurations.maybeCreate("default")
    artifacts.add("default", file('kbzsdk_x.x.x.aar'))
    ```
-   Please careful the file name of Android Archive file.
+   **Please careful the file name of Android Archive file. It must be the same of the kbz SDK file
+   name.**
+
 4. In the android root folder find `settings.gradle` file, open it and add this `":kbz-pay-app"`
    ```gradle
    // you will already have like this or any more
@@ -102,9 +106,6 @@ And then, re-place production framework and simulator framework
 in `kbz_pay/ios/Frameworks/KBZPayAPPPay.xcframework` and if you need to re-config, research and do
 it again.
 
-**You can also read my research, [How to write flutter plugin](HowTo.md). These content of my
-research may be wrong, just a research!**
-
 ## HowToUse
 
 ```dart
@@ -114,7 +115,7 @@ final _flutterKbzPayPlugin = KbzAppPayment();
 void pay({required String prePayId, required String merchantKey}) {
   final order = _buildOrderInfo(prePayId, merchantKey);
 
-  /// In iOS, you require appScheme because KBZPay callback openUrl of your app for payment status
+  /// In iOS, you require appScheme because KBZPay callback to openUrl of your app for payment status
   _flutterKbzPayPlugin.startPay(
     orderInfo: order.$1,
     sign: order.$2,
@@ -122,7 +123,7 @@ void pay({required String prePayId, required String merchantKey}) {
   );
 }
 
-/// Payment Status (Only Android, you can listen status in iOS from deep link)
+/// Payment Status (Works only Android. In iOS, you can listen status from deep link)
 Stream<dynamic> onPayStatus() {
   return _flutterKbzPayPlugin.onPayStatus();
 }
@@ -137,6 +138,19 @@ Stream<dynamic> onPayStatus() {
   return (orderInfo, sign);
 }
 ```
+
+In iOS, `onPayStatus` can't work so, listen by the deeplink.
+
+Example of deeplink
+is `com.flutter.kbzpay.jackwill://?EXTRA_RESULT=0&EXTRA_ORDER_ID=01003203060026798916`.
+
+`EXTRA_RESULT` of the status -
+
+- 0：Pay for success，
+- 3：Payment failed, the remaining fields are reserved by KBZ for later addition
+
+**You can also read my research, [How to write flutter plugin](HowTo.md). These content of my
+research may be wrong, just a research!**
 
 <hr>
 

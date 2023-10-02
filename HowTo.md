@@ -68,8 +68,7 @@ In this situation, you can integrate your podspec below that
 
 `If you know Swift, you can also convert Objective-C code to Swift by using` [converter](https://okaxaki.github.io/objc2swift/demo.html)
 
-*
-*`If your Vendor Framework is writing with Objective-C and your plugin of language is Swift, some methods and names are overrided and renamed because of Swift Compiler.`
+**`If your Vendor Framework is writing with Objective-C and your plugin of language is Swift, some methods and names are overrided and renamed because of Swift Compiler.`
 You should learn about `Swift Style Guide`**
 
 [Ref-SwiftCompiler](https://stackoverflow.com/a/40164599/19999522)
@@ -87,6 +86,7 @@ cd ios && open Runner.xcworkspace
 ```
 
 In Xcode,
+
 <pre>
 .
 ├── Runner
@@ -108,7 +108,6 @@ In Xcode,
 
 Now, you are ready to code plugin.
 
-
 <hr>
 
 <hr>
@@ -119,7 +118,6 @@ Best reference of flutter plugin using SDK
 is -> [Spotify SDK for Flutter](https://github.com/brim-borium/spotify_sdk) . There, you can learn
 how to write flutter plugin in Android and iOS.
 
-
 <hr>
 
 <hr>
@@ -127,4 +125,3 @@ how to write flutter plugin in Android and iOS.
 # How To Use this Plugin
 
 To use the plugin, please read [README.md](README.md) and config as the described.
-
