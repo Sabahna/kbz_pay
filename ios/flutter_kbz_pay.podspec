@@ -25,22 +25,25 @@ KBZ Bank payment with Flutter.
   #
   # Let's assume you are using only one KBZPayAppPay vendor framework and
   # your folder structure is like that -> 
+  #
   # plugin
   #   |_  ios/KBZPayAppPay.xcframework
   #   |_  example/...
+  #
   # In this situation, you can integrate your podspec below that
   #
   # s.preserve_paths = 'KBZPayAPPPay.xcframework/**/*'
   # s.xcconfig = { 'OTHER_LDFLAGS' => '-framework KBZPayAPPPay','ENABLE_BITCODE' => 'NO' }
   # s.vendored_frameworks = 'KBZPayAPPPay.xcframework'
+  
+
+  # Or if you are using many vendor frameworks and so you can integrate folder structure like ->
+  #
   # plugin
   #   |_  ios/Frameworks
   #                 |_ KBZPayAppPay.xcframework
   #                 |_ Others...
   #   |_  example/...
-  #
-  # Or if you are using many vendor frameworks and so you can integrate folder structure like ->
-
   #
   s.preserve_paths = 'Frameworks/**/**/*'
   s.vendored_frameworks = 'Frameworks/**'
