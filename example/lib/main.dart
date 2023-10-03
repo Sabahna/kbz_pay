@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_kbz_pay_example/payment.dart';
-import 'package:kbz_pay/kbz_pay.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_kbz_pay_example/demo/pre_create.dart';
+import 'package:flutter_kbz_pay_example/demo/secure_info.dart';
+
+import 'demo/startPay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,49 +19,62 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _flutterKbzPayPlugin = FlutterKbzPay();
-
-  /// text controller
+  /// Required Bank & App Info
   ///
-  final sayHelloController = TextEditingController();
-  String sayHelloText = "";
+  late String appId;
+  late String merchCode;
+  late String merchKey;
 
-  final payment = Payment();
+  /// Text controller
+  ///
+  final orderIdController = TextEditingController();
+  final amountController = TextEditingController();
+  String? precreateText;
+
+  late SecureInfo info;
+  late PreCreate preCreate;
+  late StartPay startPay;
 
   @override
   void initState() {
     super.initState();
+    init();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      final pay = FlutterKbzPay();
-      platformVersion = await pay.startPayDemo(
-        merchCode: "200290",
-        appId: "kp7536cbbc95ce4fe8bcc2505a6ff15c",
-        signKey: "wowme@12345678",
-        orderId: "123456",
-        amount: 1000,
-        title: "Testing ",
-        notifyURL: "https://wowme.tech",
-        isProduction: true,
-      );
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  /// Initialize to get the merchant & appId information from environment file
+  Future<void> init() async {
+    await dotenv.load(fileName: ".env");
+    appId = dotenv.env['app_id']!;
+    merchCode = dotenv.env['merch_code']!;
+    merchKey = dotenv.env['merch_key']!;
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+    info = SecureInfo(
+      merchCode: merchCode,
+      appId: appId,
+      merchKey: merchKey,
+    );
+
+    preCreate = PreCreate(info: info);
+    startPay = StartPay(info: info);
+  }
+
+  void createOrder() async {
+    print("create order");
+    final response = await preCreate.createPay(
+      amount: amountController.text,
+      merchOrderId: orderIdController.text,
+    );
 
     setState(() {
-      _platformVersion = platformVersion;
+      precreateText = response["Response"]["prepay_id"];
+    });
+  }
+
+  void pay() async {
+    startPay.pay(prePayId: precreateText!, merchantKey: info.merchKey);
+
+    startPay.onPayStatus().listen((event) {
+      print("onPayStatus $event");
     });
   }
 
@@ -68,40 +83,63 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('KBZ Pay Plugin Example'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(sayHelloText),
-              // TextField(
-              //   controller: sayHelloController,
-              // ),
-              ElevatedButton(
-                  onPressed: () async {
-                    final temp = await _flutterKbzPayPlugin
-                        .sayHello(sayHelloController.text);
-                    setState(() {
-                      sayHelloText = temp;
-                    });
-                  },
-                  child: const Text("Say Hello")),
-              // Text('Running on: $_platformVersion\n'),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Pre-Create Id",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(precreateText ?? "None"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  child: Text(
+                    precreateText != null ? "Now Ready to pay" : "",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                TextField(
+                  decoration: const InputDecoration(label: Text("OrderId")),
+                  controller: orderIdController,
+                ),
+                TextField(
+                  decoration: const InputDecoration(label: Text("Amount")),
+                  controller: amountController,
+                ),
 
-              ElevatedButton(
-                onPressed: () async {
-                  payment.sendPreCreate();
-                },
-                child: Text("PreCreate"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  _flutterKbzPayPlugin.startPayIos();
-                },
-                child: Text("Pay with Ios"),
-              ),
-            ],
+                /// Pre-Create Order
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ElevatedButton(
+                    onPressed: createOrder,
+                    child: const Text("Pre-Create Order"),
+                  ),
+                ),
+
+                /// Pay in-app Payment
+                precreateText != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: ElevatedButton(
+                          onPressed: pay,
+                          child: const Text("Pay"),
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
           ),
         ),
       ),

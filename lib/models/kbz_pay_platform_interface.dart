@@ -22,27 +22,23 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// ### For Testing
+  /// Start pay
+  Future<String> startPay(
+    String orderInfo,
+    String sign,
+    String signType,
+  ) {
+    throw UnimplementedError();
+  }
+
+  /// Payment Status
   ///
-  Future<String> sayHello(String name);
-
-  /// ### Recommend for demonstration
-  /// This will pre-create the payment order and will request the authentication of the KBZ pay app
-  Future<String> startPayDemo({
-    required String merchCode,
-    required String appId,
-    required String signKey,
-    required String orderId,
-    required double amount,
-    required String title,
-    required String notifyURL,
-    required bool isProduction,
-
-    /// This url Scheme works only in iOS
-    String? urlScheme,
-  });
-
-  /// Test start Pay
+  /// COMPLETED = 1
   ///
-  Future<void> startPayIos();
+  /// FAIL = 2
+  ///
+  /// CANCEL = 3
+  Stream<dynamic> onPayStatus() {
+    throw UnimplementedError();
+  }
 }

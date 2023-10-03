@@ -8,6 +8,17 @@
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>CFBundleURLTypes</key>
+   <array>
+     <dict>
+       <key>CFBundleURLName</key>
+       <string>com.flutter.kbzpay</string>
+       <key>CFBundleURLSchemes</key>
+       <array>
+         <string>com.flutter.kbzpay.jackwill</string>
+       </array>
+     </dict>
+   </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

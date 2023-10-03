@@ -1,38 +1,19 @@
 import "package:kbz_pay/models/kbz_pay_abstract.dart";
 import "package:kbz_pay/models/kbz_pay_platform_interface.dart";
 
-class FlutterKbzPay extends FlutterKbzPayAbstract {
+class KbzAppPayment extends FlutterKbzPayAbstract {
   @override
-  Future<String> sayHello(String name) {
-    return FlutterKbzPayPlatform.instance.sayHello(name);
-  }
-
-  @override
-  Future<String> startPayDemo({
-    required String merchCode,
-    required String appId,
-    required String signKey,
-    required String orderId,
-    required double amount,
-    required String title,
-    required String notifyURL,
-    required bool isProduction,
-    String? urlScheme,
+  Future<String> startPay({
+    required String orderInfo,
+    required String sign,
+    String? signType,
   }) {
-    return FlutterKbzPayPlatform.instance.startPayDemo(
-      merchCode: merchCode,
-      appId: appId,
-      signKey: signKey,
-      orderId: orderId,
-      amount: amount,
-      title: title,
-      notifyURL: notifyURL,
-      isProduction: isProduction,
-    );
+    return FlutterKbzPayPlatform.instance
+        .startPay(orderInfo, sign, signType ?? "SHA256");
   }
 
   @override
-  Future<void> startPayIos() async {
-    await FlutterKbzPayPlatform.instance.startPayIos();
+  Stream<dynamic> onPayStatus() {
+    return FlutterKbzPayPlatform.instance.onPayStatus();
   }
 }
