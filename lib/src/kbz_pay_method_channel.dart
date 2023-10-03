@@ -6,40 +6,29 @@ class MethodChannelFlutterKbzPay extends FlutterKbzPayPlatform {
   /// The method channel used to interact with the native platform.
   final _methodChannel = const MethodChannel("com.flutter.kbz.pay");
 
+  /// Event channel to listen stream data
+  final EventChannel _eventChannel =
+      const EventChannel("com.flutter.kbz.pay/pay_status");
+
+  /// Stream Payment status
+  static Stream<dynamic>? _streamPayStatus;
+
   @override
-  Future<String> sayHello(String name) async {
-    return await _methodChannel.invokeMethod("sayHello", {"name": name});
+  Future<String> startPay(
+    String orderInfo,
+    String sign,
+    String signType,
+  ) async {
+    return await _methodChannel.invokeMethod("startPay", {
+      "orderInfo": orderInfo,
+      "sign": sign,
+      "signType": signType,
+    });
   }
 
   @override
-  Future<String> startPayDemo({
-    required String merchCode,
-    required String appId,
-    required String signKey,
-    required String orderId,
-    required double amount,
-    required String title,
-    required String notifyURL,
-    required bool isProduction,
-    String? urlScheme,
-  }) async {
-    // await _methodChannel.invokeMethod('createPay', {
-    //   'merch_code': merchCode,
-    //   'appid': appId,
-    //   'sign_key': signKey,
-    //   'url_scheme': urlScheme,
-    //   'order_id': orderId,
-    //   'amount': amount,
-    //   'title': title,
-    //   'is_production': isProduction,
-    //   "notify_url": notifyURL,
-    //   'callback_info': Platform.isAndroid ? "android" : "iphone"
-    // });
-    return "hay";
-  }
-
-  @override
-  Future<void> startPayIos() async {
-    await _methodChannel.invokeMethod("testPay");
+  Stream<dynamic> onPayStatus() {
+    _streamPayStatus = _eventChannel.receiveBroadcastStream();
+    return _streamPayStatus!;
   }
 }

@@ -1,25 +1,16 @@
 abstract class FlutterKbzPayAbstract {
-  /// ### For Testing
-  ///
-  Future<String> sayHello(String name);
-
-  /// #### Recommend for demonstration
-  /// This will pre-create the payment order and will request the authentication of the KBZ pay app
-  Future<String> startPayDemo({
-    required String merchCode,
-    required String appId,
-    required String signKey,
-    required String orderId,
-    required double amount,
-    required String title,
-    required String notifyURL,
-    required bool isProduction,
-
-    /// This url Scheme works only in iOS
-    String? urlScheme,
+  Future<String> startPay({
+    required String orderInfo,
+    required String sign,
+    String? signType,
   });
 
-  /// Test pay
+  /// Payment Status
   ///
-  Future<void> startPayIos();
+  /// COMPLETED = 1
+  ///
+  /// FAIL = 2
+  ///
+  /// CANCEL = 3
+  Stream<dynamic> onPayStatus();
 }
