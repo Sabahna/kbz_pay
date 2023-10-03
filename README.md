@@ -2,16 +2,21 @@
 
 KBZ Bank payment with Flutter
 
-## Requirements
+## README
 
 1. You need KBZ Merchant Account and related account and app information. So, contact KBZ bank
-2. [Here](https://wap.kbzpay.com/pgw/uat/api/#/en/dashboard) is the official KBZ payment integration
+2. After contacting KBZ bank, they will give you UAT test bank account, UAT testing app for android
+   and ios, app_id and merchant information.
+3. [Here](https://wap.kbzpay.com/pgw/uat/api/#/en/dashboard) is the official KBZ payment integration
    documentation. You should read `In App Payment` section.
+4. In KBZPay docs, they will say `Merchant Key`, `Sign Key` or `App Key`. Don't get confused and
+   please remember, they are the same. 🥹
 
 ## Android
 
 Download the current KBZPay SDK in the Frontend SDK section of SDK & Demo tab
-as [here](https://wap.kbzpay.com/pgw/uat/api/#/en/docs/InApp/in-app-download-en).
+as [here](https://wap.kbzpay.com/pgw/uat/api/#/en/docs/InApp/in-app-download-en). Sometimes download
+link fails, please contact the bank at this time or get the SDK(v1.1.0) in the project of example.
 
 `Since Android Studio 4.2 you need to manually perform these steps in order to add .jar/.aar files`
 
@@ -44,6 +49,11 @@ as [here](https://wap.kbzpay.com/pgw/uat/api/#/en/docs/InApp/in-app-download-en)
    // After adding, may be like that
    include ":app", ":kbz-pay-app"
    ```
+
+**Notice:**
+
+- There are two KBZPay SDKs for UAT and Production. Please use SDK in order of your development
+  process.🎯
 
 ## iOS
 
