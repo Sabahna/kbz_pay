@@ -105,9 +105,42 @@ it again.
 **You can also read my research, [How to write flutter plugin](HowTo.md). These content of my
 research may be wrong, just a research!**
 
+## HowToUse
+
+```dart
+
+final _flutterKbzPayPlugin = KbzAppPayment();
+
+void pay({required String prePayId, required String merchantKey}) {
+  final order = _buildOrderInfo(prePayId, merchantKey);
+
+  /// In iOS, you require appScheme because KBZPay callback openUrl of your app for payment status
+  _flutterKbzPayPlugin.startPay(
+    orderInfo: order.$1,
+    sign: order.$2,
+    appScheme: "com.flutter.kbzpay.jackwill",
+  );
+}
+
+/// Payment Status (Only Android, you can listen status in iOS from deep link)
+Stream<dynamic> onPayStatus() {
+  return _flutterKbzPayPlugin.onPayStatus();
+}
+
+/// Actually, you don't need this method. Required info are given by server-side. This is just for demo.
+(String, String) _buildOrderInfo(String prePayId, String merchantKey) {
+  final orderInfo =
+      "appid=${info.appId}&merch_code=${info.merchCode}&nonce_str=${RandomGen.I.nonceStr(
+      20)}&prepay_id=$prePayId&timestamp=${RandomGen.I.timeStamp()}";
+
+  final sign = SHA.I.getSHA256Str("$orderInfo&key=$merchantKey");
+  return (orderInfo, sign);
+}
+```
+
 <hr>
 
 **Feel Free to Code**
 
 *Happy Coding ...<br>
-Jack*
+Jack Will*

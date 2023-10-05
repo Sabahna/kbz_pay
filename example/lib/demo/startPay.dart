@@ -21,6 +21,7 @@ class StartPay {
     );
   }
 
+  /// Payment Status (Only Android, you can listen status in iOS from deep link)
   Stream<dynamic> onPayStatus() {
     return _flutterKbzPayPlugin.onPayStatus();
   }
