@@ -18,11 +18,13 @@ class MethodChannelFlutterKbzPay extends FlutterKbzPayPlatform {
     String orderInfo,
     String sign,
     String signType,
+    String? appScheme,
   ) async {
     return await _methodChannel.invokeMethod("startPay", {
       "orderInfo": orderInfo,
       "sign": sign,
       "signType": signType,
+      "appScheme": appScheme,
     });
   }
 

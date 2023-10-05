@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_kbz_pay_example/demo/pre_create.dart';
 import 'package:flutter_kbz_pay_example/demo/secure_info.dart';
+import 'package:uni_links/uni_links.dart';
 
 import 'demo/startPay.dart';
 
@@ -35,10 +36,21 @@ class _MyAppState extends State<MyApp> {
   late PreCreate preCreate;
   late StartPay startPay;
 
+  /// Deep link
+  ///
+  late StreamSubscription _sub;
+
+  Future<void> initUniLinks() async {
+    _sub = uriLinkStream.listen((Uri? uri) {
+      print("unilinkStream $uri");
+    }, onError: (err) {});
+  }
+
   @override
   void initState() {
     super.initState();
     init();
+    initUniLinks();
   }
 
   /// Initialize to get the merchant & appId information from environment file
@@ -76,6 +88,12 @@ class _MyAppState extends State<MyApp> {
     startPay.onPayStatus().listen((event) {
       print("onPayStatus $event");
     });
+  }
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 
   @override

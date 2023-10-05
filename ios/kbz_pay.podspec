@@ -3,7 +3,7 @@
 # Run `pod lib lint flutter_kbz_pay.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'flutter_kbz_pay'
+  s.name             = 'kbz_pay'
   s.version          = '0.0.1'
   s.summary          = 'KBZ Bank payment with Flutter.'
   s.description      = <<-DESC

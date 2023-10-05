@@ -13,7 +13,12 @@ class StartPay {
   void pay({required String prePayId, required String merchantKey}) {
     final order = _buildOrderInfo(prePayId, merchantKey);
 
-    _flutterKbzPayPlugin.startPay(orderInfo: order.$1, sign: order.$2);
+    /// In iOS, you require appScheme because KBZPay callback openUrl of your app for payment status
+    _flutterKbzPayPlugin.startPay(
+      orderInfo: order.$1,
+      sign: order.$2,
+      appScheme: "com.flutter.kbzpay.jackwill",
+    );
   }
 
   Stream<dynamic> onPayStatus() {
