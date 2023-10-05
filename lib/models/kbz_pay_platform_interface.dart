@@ -1,6 +1,5 @@
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'flutter_kbz_pay_method_channel.dart';
+import "package:kbz_pay/src/kbz_pay_method_channel.dart";
+import "package:plugin_platform_interface/plugin_platform_interface.dart";
 
 abstract class FlutterKbzPayPlatform extends PlatformInterface {
   /// Constructs a FlutterKbzPayPlatform.
@@ -23,7 +22,28 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  /// Start pay
+  ///
+  /// [appScheme] only need for iOS
+  Future<String> startPay(
+    String orderInfo,
+    String sign,
+    String signType,
+
+    /// For only iOS
+    String? appScheme,
+  ) {
+    throw UnimplementedError();
+  }
+
+  /// Payment Status
+  ///
+  /// COMPLETED = 1
+  ///
+  /// FAIL = 2
+  ///
+  /// CANCEL = 3
+  Stream<dynamic> onPayStatus() {
+    throw UnimplementedError();
   }
 }
