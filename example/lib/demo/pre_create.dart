@@ -1,7 +1,9 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
 import 'package:flutter_kbz_pay_example/demo/SHA.dart';
 import 'package:flutter_kbz_pay_example/demo/random_gen.dart';
 import 'package:flutter_kbz_pay_example/demo/secure_info.dart';
+import 'package:http/http.dart' as http;
 
 /// Actually, pre-creating should be in server side. This is just for demo.
 class PreCreate {
@@ -21,21 +23,17 @@ class PreCreate {
   final String uatApi = "http://api.kbzpay.com/payment/gateway/uat/precreate";
   final String notifyUrl = "https://example.tech";
   final String urlScheme = "com.flutter.kbzpay.jackwill";
-  final dio = Dio();
 
   Future<dynamic> createPay({
     required String amount,
     required String merchOrderId,
   }) async {
     print("create pay api");
-    final request = await dio.request(
-      uatApi,
-      data: _createOrder(amount, merchOrderId),
-      options: Options(method: "POST"),
-    );
+    final request = await http.post(Uri.parse(uatApi),
+        body: jsonEncode(_createOrder(amount, merchOrderId)));
 
-    print(request.data);
-    return request.data;
+    print(request.body);
+    return jsonDecode(request.body);
   }
 
   dynamic _createOrder(String amount, String merchOrder) {

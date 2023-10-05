@@ -12,9 +12,7 @@ class RandomGen {
   static final RandomGen I = RandomGen._();
 
   String nonceStr(int length) {
-    final nonceStr = String.fromCharCodes(
-      List.generate(length, (index) => _r.nextInt(33) + 89),
-    );
+    final nonceStr = _r.nextInt(length).toString();
     print("nonce string -> $nonceStr");
     return nonceStr;
   }

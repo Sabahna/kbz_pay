@@ -23,10 +23,15 @@ abstract class FlutterKbzPayPlatform extends PlatformInterface {
   }
 
   /// Start pay
+  ///
+  /// [appScheme] only need for iOS
   Future<String> startPay(
     String orderInfo,
     String sign,
     String signType,
+
+    /// For only iOS
+    String? appScheme,
   ) {
     throw UnimplementedError();
   }
