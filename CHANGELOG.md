@@ -1,3 +1,5 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* iOS Payment
+* Android Payment
+* Example project
