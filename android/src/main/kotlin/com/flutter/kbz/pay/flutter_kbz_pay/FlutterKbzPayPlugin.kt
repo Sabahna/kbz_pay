@@ -21,7 +21,6 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var eventChannel: EventChannel
     private lateinit var activity: Activity
 
-    private lateinit var sink: EventSink
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         /// Flutter Method Channel
@@ -33,10 +32,9 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             EventChannel(flutterPluginBinding.binaryMessenger, "com.flutter.kbz.pay/pay_status")
         eventChannel.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(args: Any?, eventSink: EventSink) {
-                sink = eventSink
 
                 /// for companion method
-                sinkCompanion = sink
+                sinkCompanion = eventSink
             }
 
             override fun onCancel(args: Any?) {}
@@ -80,14 +78,14 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
 
     companion object {
-        private lateinit var sinkCompanion: EventSink
+        private var sinkCompanion: EventSink? = null
 
         // PayStatus Callback
         fun sendPayStatus(status: Int, orderId: String?) {
             val map: HashMap<Any?, Any?> = HashMap<Any?, Any?>()
             map["status"] = status
             map["orderId"] = orderId
-            sinkCompanion.success(map)
+            sinkCompanion?.success(map)
         }
     }
 

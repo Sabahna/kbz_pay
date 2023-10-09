@@ -13,7 +13,7 @@ class CallbackResultActivity : Activity() {
         val intent: Intent = intent
         val result: Int = intent.getIntExtra(KBZPay.EXTRA_RESULT, 0)
 
-        Log.d("jackKBZPayResult", result.toString())
+        Log.d("JackKBZPay", result.toString())
         if (result == KBZPay.COMPLETED) {
             Log.d("JackKBZPay", "Pay Success!")
             val orderId: String? = intent.getStringExtra(KBZPay.EXTRA_ORDER_ID)
@@ -29,7 +29,7 @@ class CallbackResultActivity : Activity() {
     }
 
     protected override fun onResume() {
-        Log.i("onResume", "Resume Activity in Callback")
+        Log.i("onResume", "Resume Activity in KBZ Pay Callback")
         super.onResume()
     }
 }

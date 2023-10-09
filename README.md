@@ -1,13 +1,14 @@
-# Flutter KBZ Pay
+# KBZPay In-App Payment
 
-KBZ Bank payment with Flutter
+KBZPay payment with Flutter
 
 ## README
 
-1. You need KBZ Merchant Account and related account and app information. So, contact KBZ bank
-2. After contacting KBZ bank, they will give you UAT test bank account, UAT testing app for android
+1. You need KBZPay Merchant Account and related account and app information. So, contact KBZ bank
+2. After contacting KBZ bank, they will give you UAT account, UAT app for android
    and ios, app_id and merchant information.
-3. [Here](https://wap.kbzpay.com/pgw/uat/api/#/en/dashboard) is the official KBZ payment integration
+3. [Here](https://wap.kbzpay.com/pgw/uat/api/#/en/dashboard) is the official KBZPay payment
+   integration
    documentation. You should read `In App Payment` section.
 4. In KBZPay docs, they will say `Merchant Key`, `Sign Key` or `App Key`. Don't get confused and
    please remember, they are the same. 🥹
@@ -128,7 +129,7 @@ Stream<dynamic> onPayStatus() {
   return _flutterKbzPayPlugin.onPayStatus();
 }
 
-/// Actually, you don't need this method. Required info are given by server-side. This is just for demo.
+/// Actually, you don't need this method. Required infos are given by server-side. This is just for demo.
 (String, String) _buildOrderInfo(String prePayId, String merchantKey) {
   final orderInfo =
       "appid=${info.appId}&merch_code=${info.merchCode}&nonce_str=${RandomGen.I.nonceStr(
@@ -147,7 +148,7 @@ is `com.flutter.kbzpay.jackwill://?EXTRA_RESULT=0&EXTRA_ORDER_ID=010032030600267
 `EXTRA_RESULT` of the status -
 
 - 0：Pay for success，
-- 3：Payment failed, the remaining fields are reserved by KBZ for later addition
+- 3：Payment failed, the remaining fields are reserved by KBZPay for later addition
 
 **You can also read my research, [How to write flutter plugin](HowTo.md). These content of my
 research may be wrong, just a research!**
