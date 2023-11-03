@@ -68,7 +68,7 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
 
         } else {
-            result.notImplemented();
+            result.notImplemented()
         }
     }
 
@@ -82,7 +82,7 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         // PayStatus Callback
         fun sendPayStatus(status: Int, orderId: String?) {
-            val map: HashMap<Any?, Any?> = HashMap<Any?, Any?>()
+            val map: HashMap<Any?, Any?> = HashMap()
             map["status"] = status
             map["orderId"] = orderId
             sinkCompanion?.success(map)
@@ -91,21 +91,16 @@ class FlutterKbzPayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
 
     // ActivityAware Section
-    override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
-    }
+    override fun onDetachedFromActivity() {}
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        TODO("Not yet implemented")
+        activity = binding.activity
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        activity = binding.activity;
+        activity = binding.activity
     }
 
-    override fun onDetachedFromActivityForConfigChanges() {
-        TODO("Not yet implemented")
-    }
-
+    override fun onDetachedFromActivityForConfigChanges() {}
 
 }
